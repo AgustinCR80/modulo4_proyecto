@@ -1,5 +1,4 @@
 
-
 -- 2. Muestra los nombres de todas las películas con una clasificación por edades de ‘R’.
 SELECT TITLE, RATING		 
 FROM FILM AS F 
@@ -647,21 +646,21 @@ CROSS JOIN STORE AS S2 ;
 -- 64. Encuentra la cantidad total de películas alquiladas por cada cliente y muestra el ID del cliente, 
 --	   su nombre y apellido junto con la cantidad de películas alquiladas.
 -- En esta consulta calculamos la cantidad total de alquileres que ha hecho cada cliente:
-SELECT C.FIRST_NAME AS "Nombre", C.LAST_NAME AS "Apellido", COUNT(R.RENTAL_ID) AS "Cantidad_total_alquileres"
+SELECT C.CUSTOMER_ID AS "Id", C.FIRST_NAME AS "Nombre", C.LAST_NAME AS "Apellido", COUNT(R.RENTAL_ID) AS "Cantidad_total_alquileres"
 FROM CUSTOMER AS C 
 JOIN RENTAL AS R 
 ON C.CUSTOMER_ID = R.CUSTOMER_ID 
-GROUP BY C.FIRST_NAME, C.LAST_NAME
+GROUP BY C.CUSTOMER_ID, C.FIRST_NAME, C.LAST_NAME
 ORDER BY "Cantidad_total_alquileres";
 
 -- En esta consulta calculamos los alquileres de cada cliente discriminando el alquiler repetido de cada película.
-SELECT C.FIRST_NAME AS "Nombre", C.LAST_NAME AS "Apellido", COUNT(DISTINCT I.FILM_ID) AS "Cantidad_alquileres"
+SELECT C.CUSTOMER_ID AS "Id", C.FIRST_NAME AS "Nombre", C.LAST_NAME AS "Apellido", COUNT(DISTINCT I.FILM_ID) AS "Cantidad_alquileres"
 FROM CUSTOMER AS C 
 JOIN RENTAL AS R 
 ON C.CUSTOMER_ID = R.CUSTOMER_ID 
 JOIN INVENTORY AS I 
 ON R.INVENTORY_ID = I.INVENTORY_ID 
-GROUP BY C.FIRST_NAME, C.LAST_NAME
+GROUP BY C.CUSTOMER_ID, C.FIRST_NAME, C.LAST_NAME
 ORDER BY "Cantidad_alquileres";
 
 
